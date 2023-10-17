@@ -1,1 +1,4 @@
 /* here's where core css will go  */
+h1, h2, h3, h4, h5 {
+  font-family: 'Poppins', sans-serif !important;
+}

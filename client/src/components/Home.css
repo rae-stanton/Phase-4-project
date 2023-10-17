@@ -2,6 +2,7 @@ h1, h2, h3, h4, h5 {
   font-family: 'Poppins', sans-serif !important;
 }
 
-body {
-  background-color: #eeedf6 !important;
+h1 {
+  text-align: center !important;
+  color: #54318c;
 }
