@@ -10,8 +10,21 @@ h1, h2, h3, h4, h5 {
   padding: 20px;
 }
 
+.dash-cards {
+  background-color: #a486d5;
+  color: white;
+}
 .dash-cards:hover {
   transform: scale(1.05);
   transition: transform 0.2s ease-in-out; /* 0.5s duration with ease-in-out easing */
   z-index: 1; /* Ensures the hovered card appears above the other cards */
+}
+
+.dash-card-image {
+    width: 100%;      /* or you can specify a fixed width like 150px; */
+    max-width: 200px; /* optional, to ensure it doesn't grow beyond a certain size */
+    height: auto;     /* maintain aspect ratio */
+    display: block;   /* to remove any unwanted white space */
+    margin: 0 auto;   /* to center it if it's smaller than its container */
+    padding: 5px;
 }

@@ -1,13 +1,14 @@
-import React from 'react';
-import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import "./Dashboard.css"
+import React from "react";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import "./Dashboard.css";
+import ordersImage from "../images/orders.png"; // <-- Import the image here
 
 function Dashboard() {
   return (
     <div>
-      <h1>Welcome to your dashboard - here's what you can do:</h1>
+      <h1>Welcome! Here's your info:</h1>
       <DashCardGrid1 />
     </div>
   );
@@ -19,8 +20,13 @@ function DashCardGrid1() {
       <Row xs={1} md={3} className="g-3">
         {Array.from({ length: 3 }).map((_, idx) => (
           <Col key={idx}>
-            <Card className='dash-cards'>
-              {/* <Card.Img variant="top" src="holder.js/100px160" /> */}
+            <Card className="dash-cards">
+              <Card.Img
+                variant="top"
+                src={ordersImage}
+                className="dash-card-image"
+              />
+
               <Card.Body>
                 <Card.Title>Check this out:</Card.Title>
                 <Card.Text>
@@ -35,7 +41,4 @@ function DashCardGrid1() {
   );
 }
 
-
-
 export default Dashboard;
-

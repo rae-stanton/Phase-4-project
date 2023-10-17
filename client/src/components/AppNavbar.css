@@ -3,7 +3,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .main-navbar {
-  background-color: #f6af2d;
+  background-color: #54318c;
 }
 
 .nav-link {
@@ -12,6 +12,6 @@ h1, h2, h3, h4, h5 {
 }
 
 .nav-link:hover {
-  color: #f26419 !important;
+  color: #ffcc00 !important;
 }
 
