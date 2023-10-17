@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 function ProductList() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch('/api/products') // Replace with your actual API endpoint
+    fetch("/api/products") // Replace with your actual API endpoint
       .then((response) => response.json())
       .then((data) => setProducts(data));
   }, []);
@@ -17,7 +17,7 @@ function ProductList() {
           <p>{product.description}</p>
           <p>Price: ${product.price}</p>
         </div>
-      )}
+      ))}
     </div>
   );
 }
