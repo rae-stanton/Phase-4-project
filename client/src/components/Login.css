@@ -1,0 +1,14 @@
+h1, h2, h3, h4, h5 {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.login-form {
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* this will stack children vertically */
+    justify-content: center; /* align horizontal - now works vertically because of flex-direction: column */
+    align-items: center;     /* align vertical */
+    padding-top: 30px;
+}
+
+

@@ -1,7 +1,17 @@
+h1, h2, h3, h4, h5 {
+  font-family: 'Poppins', sans-serif !important;
+}
+
 .main-navbar {
-  background-color: rgb(204, 157, 71);
+  background-color: #f6af2d;
 }
 
 .nav-link {
-  color: blueviolet;
+  color: white !important;
+  font-family: 'Poppins', sans-serif !important;
 }
+
+.nav-link:hover {
+  color: #f26419 !important;
+}
+
