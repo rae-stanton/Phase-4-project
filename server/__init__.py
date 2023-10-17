@@ -1,8 +1,16 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+# from flask import Flask
+# from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-db = SQLAlchemy(app)
+# db = SQLAlchemy()
 
-from server import routes
+# def create_app():
+#     app = Flask(__name__)
+#     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shoppingapp.db'
+
+#     db.init_app(app)
+
+#     with app.app_context():
+#         from server import routes
+
+#     return app
+
