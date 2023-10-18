@@ -23,3 +23,7 @@ class Product(db.Model):
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(255))
     price = db.Column(db.Float, nullable=False)
+    image = db.Column(db.String(255))  # You can store the image path
+    inventory = db.Column(db.Integer, nullable=False)
+    # Foreign Key or Enum?  Still need to read/understand
+    category = db.Column(db.String(100), nullable=False)
