@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Product Detail</title>
+  </head>
+  <body>
+    <h1>{{ product.name }}</h1>
+    <p>Description: {{ product.description }}</p>
+    <p>Price: ${{ product.price }}</p>
+    <p>Inventory: {{ product.inventory }}</p>
+    <p>Category: {{ product.category }}</p>
+
+    <form
+      action="{{ url_for('main.add_to_cart', product_id=product.id) }}"
+      method="POST"
+    >
+      <button type="submit">Add to Cart</button>
+    </form>
+  </body>
+</html>
+In this step, you have created a route for the home page, displayed product
+listings in carousel format, implemented carousels for different product
+categories, made product cards clickable to view detailed information, and
+implemented the "Add to Cart" functionality. You can enhance and customize these
+templates and routes further based on your specific requirements.
