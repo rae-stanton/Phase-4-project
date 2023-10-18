@@ -1,0 +1,52 @@
+# Python related
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+
+# Virtual environment
+venv/
+env/
+pipfile.lock
+Pipfile.lock
+Pipfile
+
+# Node.js / NPM
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Frontend build
+/build
+.DS_Store
+# Compiled files
+dist/
+*.min.js
+*.min.css
+
+# Editor/IDE files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+*.komodotools
+*.kate-swp
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs and data
+*.log
+*.json
+*.csv
+
+# Temporary files
+*.tmp
+
+# OS generated files
+.DS_Store
+Thumbs.db
