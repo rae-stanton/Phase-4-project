@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Store Dashboard</title>
+  </head>
+  <body>
+    <h1>Welcome to Your Dashboard, {{ current_user.name }}!</h1>
+    <h2>Your Products:</h2>
+    <ul>
+      {% for product in products %}
+      <li>
+        <a href="{{ url_for('main.edit_product', product_id=product.id) }}"
+          >{{ product.name }}</a
+        >
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

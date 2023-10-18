@@ -1,8 +1,8 @@
-"""empty message
+"""initial migration
 
-Revision ID: 291b3c667355
+Revision ID: 4fa4a0b78bb3
 Revises: 
-Create Date: 2023-10-17 20:29:47.944966
+Create Date: 2023-10-18 08:43:52.068240
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '291b3c667355'
+revision = '4fa4a0b78bb3'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -23,11 +23,14 @@ def upgrade():
     sa.Column('name', sa.String(length=100), nullable=False),
     sa.Column('description', sa.String(length=255), nullable=True),
     sa.Column('price', sa.Float(), nullable=False),
+    sa.Column('image', sa.String(length=255), nullable=True),
+    sa.Column('inventory', sa.Integer(), nullable=False),
+    sa.Column('category', sa.String(length=100), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=80), nullable=False),
+    sa.Column('name', sa.String(length=41), nullable=False),
     sa.Column('email', sa.String(length=120), nullable=False),
     sa.Column('password_hash', sa.String(length=128), nullable=True),
     sa.Column('is_seller', sa.Boolean(), nullable=True),
