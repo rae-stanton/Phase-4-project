@@ -12,6 +12,7 @@ bcrypt = Bcrypt()
 def create_app():
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shoppingapp.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     # app.config['SECRET_KEY'] = 'your_secret_key_here'
 
     # Initialize the extensions with the app inside the function
