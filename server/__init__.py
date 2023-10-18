@@ -22,4 +22,8 @@ def create_app():
     # Import models to ensure they're attached to the SQLAlchemy instance
     from . import models
 
+    # Register blueprints
+    from .routes import main
+    app.register_blueprint(main)
+
     return app
