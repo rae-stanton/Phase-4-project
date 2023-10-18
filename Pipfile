@@ -11,6 +11,8 @@ flask-migrate = "*"
 flask-script = "*"
 sqlalchemy-serializer = "*"
 flask-bcrypt = "*"
+flask-wtf = "*"
+flask-login = "*"
 
 [dev-packages]
 
