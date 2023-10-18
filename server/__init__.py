@@ -1,16 +1,20 @@
-# from flask import Flask
-# from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
-# db = SQLAlchemy()
+# Declare the extensions outside the function, but don't initialize them yet
+db = SQLAlchemy()
+migrate = Migrate()
 
-# def create_app():
-#     app = Flask(__name__)
-#     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shoppingapp.db'
+def create_app():
+    app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shoppingapp.db'
 
-#     db.init_app(app)
+    # Initialize the extensions with the app inside the function
+    db.init_app(app)
+    migrate.init_app(app, db)
 
-#     with app.app_context():
-#         from server import routes
+    # Import models to ensure they're attached to the SQLAlchemy instance
+    from . import models
 
-#     return app
-
+    return app

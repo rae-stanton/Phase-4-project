@@ -1,6 +1,7 @@
-from server.app import app
+from flask import Blueprint, jsonify
 
-# Define your routes here
+main = Blueprint('main', __name__)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+@main.route('/')
+def index():
+    return jsonify(message="Hello from Flask!")
