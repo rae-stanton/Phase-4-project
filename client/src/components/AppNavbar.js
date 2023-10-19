@@ -17,6 +17,7 @@ function AppNavbar() {
           <Nav.Link as={Link} to="/Dashboard" style={{ marginRight: '10px' }} className="navlink">Dashboard</Nav.Link>
           <Nav.Link as={Link} to="/Login" className="navlink">Login</Nav.Link>
           <Nav.Link as={Link} to="/Cart" className="navlink">Cart (0)</Nav.Link>
+          {/* <Nav.Link as={Link} to="/Register" className="navlink">Register</Nav.Link> */}
         </Nav>
       </Container>
     </Navbar>
