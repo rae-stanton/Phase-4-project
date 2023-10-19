@@ -16,6 +16,7 @@ werkzeug = "==2.0.2"
 flask-sqlalchemy = "==2.5.1"
 sqlalchemy = "==1.4.22"
 flask-restful = "*"
+faker = "*"
 
 [dev-packages]
 
