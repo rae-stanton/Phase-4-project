@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Field, Form } from "formik";
 import Button from "react-bootstrap/Button";
 import loginImage from "../images/login.png"; // Importing the image
-import "./Login.css";
+import "./Register.css";
 
 function Register() {
   return (
