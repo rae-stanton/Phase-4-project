@@ -1,11 +1,11 @@
 from app import app
-from models import User, db
+from models import User, Product, db
 from faker import Faker
 
 fake = Faker()
 
 with app.app_context():
-    from server.models import User, Product
+    from models import User, Product
 
 # Function to seed users
 
