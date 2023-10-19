@@ -75,6 +75,7 @@ function Register() {
             />
             <br />
             <br /> */}
+            <br />
             <Button variant="primary" type="submit" className="form-button">
               Register
             </Button>
