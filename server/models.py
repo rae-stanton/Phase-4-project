@@ -27,3 +27,4 @@ class Product(db.Model):
     inventory = db.Column(db.Integer, nullable=False)
     # Foreign Key or Enum?  Still need to read/understand
     category = db.Column(db.String(100), nullable=False)
+    sold = db.Column(db.Boolean, default=False)
