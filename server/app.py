@@ -19,19 +19,21 @@ migrate = Migrate(app, db)
 
 api = Api(app)
 
+
 @app.route("/")
 def home():
     return "Welcome to the Shopping App!"
 
+
 class Users(Resource):
     def get(self):
         users = User.query.all()
-        return make_response(
-            [user.to_dict() for user in users], 200
-        )
+        # This will print users to the terminal to see if the query is fetching them correctly
+        print(users)
+        return jsonify({"users": [user.to_dict() for user in users]})
+
 
 api.add_resource(Users, "/users")
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
-
