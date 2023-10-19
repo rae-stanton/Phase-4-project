@@ -17,6 +17,7 @@ flask-sqlalchemy = "==2.5.1"
 sqlalchemy = "==1.4.22"
 flask-restful = "*"
 faker = "*"
+flask-cors = "*"
 
 [dev-packages]
 
