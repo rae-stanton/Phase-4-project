@@ -18,6 +18,7 @@ sqlalchemy = "==1.4.22"
 flask-restful = "*"
 faker = "*"
 flask-cors = "*"
+jsonify = "*"
 
 [dev-packages]
 
