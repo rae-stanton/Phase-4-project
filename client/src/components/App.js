@@ -4,6 +4,7 @@ import Home from "./Home";
 import Dashboard from "./Dashboard";
 import Login from "./Login";
 import AppNavbar from "./AppNavbar";
+import Register from "./Register"
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </div>
     </Router>
