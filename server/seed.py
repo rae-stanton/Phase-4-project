@@ -1,15 +1,23 @@
+import os
+import sys
 from app import app
 from models import User, Product, db
 from faker import Faker
+
+# Get the current working directory
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Add the parent directory to sys.path
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
 
 fake = Faker()
 
 with app.app_context():
     from models import User, Product
 
+
 # Function to seed users
-
-
 def seed_users(num_users=10):
     User.query.delete()
     for _ in range(num_users):
@@ -22,9 +30,8 @@ def seed_users(num_users=10):
         db.session.add(user)
     db.session.commit()
 
+
 # Function to seed products
-
-
 def seed_products(num_products=20):
     Product.query.delete()
     for _ in range(num_products):
