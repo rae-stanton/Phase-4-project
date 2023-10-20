@@ -72,11 +72,6 @@ class Products(Resource):
         if not data.get('name') or not data.get('price') or not data.get('count'):
             return {"message": "Name, Price, and Count are required!"}, 400
 
-        # Check if product already exists
-        existing_product = Product.query.filter_by(name=data['name']).first()
-        if existing_product:
-            return {"message": "A product with this name already exists."}, 400
-
         # Create a new product instance and add to database
         product = Product(name=data['name'],
                           price=data['email'], count=data['count'])
