@@ -37,3 +37,13 @@ h5 {
   max-width: 60%; /* You can adjust as needed */
   margin-right: 20px; /* Spacing between the image and the form content */
 }
+
+.flash-message {
+    padding: 10px;
+    background-color: #e8f4e3;
+    border: 1px solid #a6d7c4;
+    color: #3a8d68;
+    border-radius: 5px;
+    margin: 10px 0;
+    text-align: center;
+}

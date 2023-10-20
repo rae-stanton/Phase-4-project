@@ -17,15 +17,16 @@ function Register() {
             password: "",
           }}
           onSubmit={async (values) => {
-            const response = await fetch('http://127.0.0.1:5000/users', {
-              method: 'POST',
+            const response = await fetch("http://127.0.0.1:5000/users", {
+              method: "POST",
               // mode: "cors",
               headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
               },
               body: JSON.stringify({
                 name: `${values.firstName} ${values.lastName}`,
-                email: values.email
+                email: values.email,
+                password: values.password,
               }),
             });
 
@@ -65,7 +66,7 @@ function Register() {
               type="email"
             />
             <br />
-            {/* <label htmlFor="password">Password</label>
+            <label htmlFor="password">Password</label>
             <br />
             <Field
               id="password"
@@ -74,7 +75,7 @@ function Register() {
               type="password"
             />
             <br />
-            <br /> */}
+            <br />
             <br />
             <Button variant="primary" type="submit" className="form-button">
               Register

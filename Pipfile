@@ -19,6 +19,7 @@ flask-restful = "*"
 faker = "*"
 flask-cors = "*"
 jsonify = "*"
+flask-jwt-extended = "*"
 
 [dev-packages]
 
