@@ -6,6 +6,7 @@ from flask_restful import Resource, Api
 # assuming models.py is in the same directory
 from server.models import User, Product, db
 from flask_bcrypt import Bcrypt
+from flask_jwt_extended import create_access_token
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 DATABASE = os.environ.get(
@@ -66,6 +67,35 @@ class Users(Resource):
 
 
 api.add_resource(Users, "/users")
+
+class UserLogin(Resource):
+    def post(self):
+        # Get email and password from the request data
+        data = request.get_json()
+        email = data.get("email")
+        password = data.get("password")
+
+        # Check for missing email or password
+        if not email or not password:
+            return {"message": "Email and password are required!"}, 400
+
+        # Check the email against the database
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            return {"message": "User not found!"}, 404
+
+        # Verify the password using the check_password method
+        if not user.check_password(password):
+            return {"message": "Invalid password!"}, 401
+
+        # If everything is okay, generate a new access token for the user
+        access_token = create_access_token(identity=user.id)
+
+        # Return the access token
+        return {"access_token": access_token}, 200
+
+# Add the new login route to the API
+api.add_resource(UserLogin, "/login")
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
