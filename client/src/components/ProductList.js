@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from "react";
+import ProductCard from "./ProductCard";
 
 function ProductList() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch("/api/products") // Replace with your actual API endpoint
+    fetch("http://localhost:5000/products")
       .then((response) => response.json())
-      .then((data) => setProducts(data));
+      .then((data) => setProducts(data.products))
+      .catch((error) => console.error("Error fetching products:", error));
   }, []);
 
   return (
     <div>
       {products.map((product) => (
-        <div key={product.id}>
-          <h3>{product.name}</h3>
-          <p>{product.description}</p>
-          <p>Price: ${product.price}</p>
-        </div>
+        <ProductCard key={product.id} product={product} />
       ))}
     </div>
   );

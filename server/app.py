@@ -68,7 +68,32 @@ class Users(Resource):
         return {"message": "User created successfully!", "user": {"id": user.id, "name": user.name, "email": user.email}}, 201
 
 
+class Products(Resource):
+    def get(self):
+        products = Product.query.all()
+        # This will print products to the terminal to see if the query is fetching them correctly
+        print(products)
+        return jsonify({"products": [product.to_dict() for product in products]})
+
+    def post(self):
+        # Parsing the request data
+        data = request.get_json()
+
+        # Validating the necessary fields
+        if not data.get('name') or not data.get('price') or not data.get('count'):
+            return {"message": "Name, Price, and Count are required!"}, 400
+
+        # Create a new product instance and add to database
+        product = Product(name=data['name'],
+                          price=data['email'], count=data['count'])
+        db.session.add(product)
+        db.session.commit()
+
+        return {"message": "Product created successfully!", "product": {"id": product.id, "name": product.name, "price": product.price, "count": product.count}}, 201
+
+
 api.add_resource(Users, "/users")
+api.add_resource(Products, "/products")
 
 class UserLogin(Resource):
     def post(self):
