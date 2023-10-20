@@ -3,6 +3,7 @@ import { Formik, Field, Form } from "formik";
 import Button from "react-bootstrap/Button";
 import loginImage from "../images/login.png";
 import "./Login.css";
+import FlashMessage from './FlashMessage';  // import the FlashMessage component
 
 function Login() {
   const [message, setMessage] = useState("");
@@ -28,7 +29,7 @@ function Login() {
 
       if (data.access_token) {
         localStorage.setItem("token", data.access_token);
-        setMessage("Successfully logged in!");
+        setMessage("Successfully logged in!");  // Set the flash message on success
       } else {
         setMessage("Failed to log in. Please try again.");
       }
@@ -44,7 +45,7 @@ function Login() {
     <div className="login-form">
       <div className="login-content">
         <h1>Log in here:</h1>
-        {message && <div className="message">{message}</div>}
+        {message && <FlashMessage message={message} />}  {/* Use the FlashMessage component */}
         <Formik
           initialValues={{
             email: "",
@@ -76,6 +77,7 @@ function Login() {
               placeholder="Enter your password"
               type="password"
             />
+            <br />
             <br />
             <Button variant="primary" type="submit" className="form-button">
               Log In
