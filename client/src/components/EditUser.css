@@ -1,0 +1,39 @@
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.edit-form {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 30px;
+  color: white;
+}
+
+.edit-form h1 {
+  color: #54318c;
+}
+
+.form-button {
+  background-color: #ffde5c !important;
+}
+
+.form-border {
+  width: 54%;
+  padding: 20px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  margin: 0 auto;
+  background-color: #a486d5;
+}
+
+.edit-image {
+  max-width: 60%; /* You can adjust as needed */
+  margin-right: 20px; /* Spacing between the image and the form content */
+}

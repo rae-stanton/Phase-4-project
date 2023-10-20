@@ -5,6 +5,7 @@ import Dashboard from "./Dashboard";
 import Login from "./Login";
 import AppNavbar from "./AppNavbar";
 import Register from "./Register"
+import EditUser from "./EditUser";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/edituser/:userId" element={<EditUser />} />
           <Route path="/register" element={<Register />} />
         </Routes>
       </div>
