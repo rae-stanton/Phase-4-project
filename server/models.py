@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData, Enum
-from flask_bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
 
 convention = {
     "ix": "ix_%(column_0_label)s",
@@ -13,7 +13,7 @@ convention = {
 metadata = MetaData(naming_convention=convention)
 
 db = SQLAlchemy(metadata=metadata)
-
+bcrypt = Bcrypt()
 
 class User(db.Model):
     __tablename__ = "users"
@@ -33,8 +33,7 @@ class User(db.Model):
         }
 
     def set_password(self, password):
-        self.password_hash = bcrypt.generate_password_hash(
-            password).decode('utf-8')
+        self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
 
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password_hash, password)
