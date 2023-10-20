@@ -1,6 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData, Enum
 from datetime import datetime
+from sqlalchemy.orm import validates
+from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy_serializer import SerializerMixin
 from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
 
 convention = {
@@ -16,7 +19,7 @@ metadata = MetaData(naming_convention=convention)
 db = SQLAlchemy(metadata=metadata)
 bcrypt = Bcrypt()
 
-class User(db.Model):
+class User(db.Model, SerializerMixin):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -24,7 +27,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128))
     is_seller = db.Column(db.Boolean, default=False)
-    cart = db.relationship('CartItem', backref='user', lazy=True)
+    cart = db.relationship("Cart", uselist=False, backref="user")
 
     def to_dict(self):
         return {
@@ -41,7 +44,8 @@ class User(db.Model):
         return bcrypt.check_password_hash(self.password_hash, password)
 
 
-class Product(db.Model):
+class Product(db.Model, SerializerMixin):
+    __tablename__ = 'products'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(255))
@@ -50,11 +54,17 @@ class Product(db.Model):
     count = db.Column(db.Integer, nullable=False)
     category = db.Column(Enum('Aviator', 'Wayfarer', 'Round',
                          'Sports', 'Designer', 'Oversized', 'Cat-Eye'), nullable=True)
-    cart_items = db.relationship('CartItem', backref='product', lazy=True)
+    cart_items = db.relationship("CartItem", backref="product")
 
-class CartItem(db.Model):
+class CartItem(db.Model, SerializerMixin):
+    __tablename__ = 'cart_items'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
-    quantity = db.Column(db.Integer, default=1, nullable=False)
-    added_on = db.Column(db.DateTime, default=datetime.utcnow)
+    quantity = db.Column(db.Integer, default=1)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
+    cart_id = db.Column(db.Integer, db.ForeignKey('carts.id'))
+
+class Cart(db.Model, SerializerMixin):
+    __tablename__ = 'carts'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    items = db.relationship("CartItem", backref="cart")

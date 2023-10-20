@@ -20,6 +20,8 @@ faker = "*"
 flask-cors = "*"
 jsonify = "*"
 flask-jwt-extended = "*"
+datetime = "*"
+"sqlalchemy.orm" = "*"
 
 [dev-packages]
 

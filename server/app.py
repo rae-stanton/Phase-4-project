@@ -4,7 +4,7 @@ from flask import Flask, make_response, jsonify, request
 from flask_migrate import Migrate
 from flask_restful import Resource, Api
 # assuming models.py is in the same directory
-from server.models import User, Product, db
+from server.models import User, Product, CartItem, db
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import create_access_token, JWTManager
 from datetime import timedelta
@@ -123,6 +123,37 @@ class UserLogin(Resource):
 
 # Add the new login route to the API
 api.add_resource(UserLogin, "/login")
+
+class AddToCart(Resource):
+    def post(self):
+        data = request.get_json()
+
+        user_id = data.get('user_id')
+        product_id = data.get('product_id')
+        quantity = data.get('quantity', 1)
+
+        # Validate the provided IDs
+        user = User.query.get(user_id)
+        product = Product.query.get(product_id)
+
+        if not user or not product:
+            return {"message": "User or product not found!"}, 404
+
+        # Check if the product is already in the user's cart
+        cart_item = CartItem.query.filter_by(user_id=user.id, product_id=product.id).first()
+
+        if cart_item:
+            # Increment the quantity if already in the cart
+            cart_item.quantity += quantity
+        else:
+            # Otherwise, create a new cart item for this user and product
+            cart_item = CartItem(user_id=user.id, product_id=product.id, quantity=quantity)
+            db.session.add(cart_item)
+
+        db.session.commit()
+        return {"message": "Product added to cart successfully!"}, 201
+
+api.add_resource(AddToCart, "/add-to-cart")
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
