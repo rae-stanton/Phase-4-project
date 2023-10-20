@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Field, Form } from "formik";
 import Button from "react-bootstrap/Button";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from "react-router-dom";
+import "./EditUser.css";
+import loginImage from "../images/login.png";
 
 function EditUser(props) {
   const { userId } = useParams();
@@ -69,8 +71,8 @@ function EditUser(props) {
   };
 
   return (
-    <div className="edit-user-form">
-      <div className="edit-user-content">
+    <div className="edit-form">
+      <div className="edit-form-content">
         <h1>Edit User:</h1>
         <Formik
           initialValues={initialValues}
@@ -111,6 +113,12 @@ function EditUser(props) {
             // Added an arrow function here to be able to include multiple JSX elements
             <>
               <Form className="form-border">
+                <img
+                  src={loginImage}
+                  alt="Login Illustration"
+                  className="login-image"
+                />
+                <br />
                 <label htmlFor="firstName">First Name</label>
                 <br />
                 <Field id="firstName" name="firstName" placeholder="Luna" />
