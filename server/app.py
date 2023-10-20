@@ -19,7 +19,8 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["JWT_SECRET_KEY"] = "thisisoursecretkeylol12345"
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)  # e.g., expires in 1 hour
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(
+    hours=1)  # e.g., expires in 1 hour
 db.init_app(app)
 migrate = Migrate(app, db)
 bcrypt.init_app(app)
@@ -27,6 +28,7 @@ bcrypt.init_app(app)
 api = Api(app)
 CORS(app)
 jwt = JWTManager(app)
+
 
 @app.route("/")
 def home():
@@ -68,6 +70,48 @@ class Users(Resource):
         return {"message": "User created successfully!", "user": {"id": user.id, "name": user.name, "email": user.email}}, 201
 
 
+class UserById(Resource):
+    def get(self, user_id):
+        user = User.query.get(user_id)
+        if not user:
+            return {"message": "User not found."}, 404
+        return jsonify(user.to_dict())
+
+    def put(self, user_id):
+        data = request.get_json()
+
+        # Fetch the user by ID
+        user = User.query.get(user_id)
+        if not user:
+            return {"message": "User not found."}, 404
+
+        # Update fields if provided
+        if 'name' in data:
+            user.name = data['name']
+        if 'email' in data:
+            # Check if new email already exists
+            existing_user = User.query.filter_by(email=data['email']).first()
+            if existing_user and existing_user.id != user.id:
+                return {"message": "A user with this email already exists."}, 400
+            user.email = data['email']
+        if 'password' in data:
+            user.set_password(data['password'])
+
+        db.session.commit()
+
+        return {"message": "User updated successfully!", "user": user.to_dict()}, 200
+
+    def delete(self, user_id):
+        user = User.query.get(user_id)
+        if not user:
+            return {"message": "User not found."}, 404
+        db.session.delete(user)
+        db.session.commit()
+        return {"message": "User deleted successfully!"}, 200
+
+api.add_resource(UserById, "/users/<int:user_id>")
+
+
 class Products(Resource):
     def get(self):
         products = Product.query.all()
@@ -95,6 +139,7 @@ class Products(Resource):
 api.add_resource(Users, "/users")
 api.add_resource(Products, "/products")
 
+
 class UserLogin(Resource):
     def post(self):
         # Get email and password from the request data
@@ -120,6 +165,7 @@ class UserLogin(Resource):
 
         # Return the access token
         return {"access_token": access_token}, 200
+
 
 # Add the new login route to the API
 api.add_resource(UserLogin, "/login")
