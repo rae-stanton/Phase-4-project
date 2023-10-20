@@ -14,7 +14,7 @@ h5 {
 }
 
 /* Style the ProductCard to have a fixed size */
-.product-card {
+.prod-card {
   width: calc(
     33.33% - 20px
   ); /* 33.33% width for three cards per row with some spacing */
@@ -25,12 +25,12 @@ h5 {
 }
 
 /* Optional: Style the card contents as needed */
-.product-card-content {
+.prod-card-content {
   /* Add your styles for card contents here */
 }
 
 /* Optional: Style card images to prevent scaling */
-.product-card img {
+.prod-card img {
   max-width: 100%;
   height: auto;
 }
