@@ -6,7 +6,8 @@ from flask_restful import Resource, Api
 # assuming models.py is in the same directory
 from server.models import User, Product, db
 from flask_bcrypt import Bcrypt
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, JWTManager
+from datetime import timedelta
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 DATABASE = os.environ.get(
@@ -17,14 +18,15 @@ bcrypt = Bcrypt()
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
+app.config["JWT_SECRET_KEY"] = "thisisoursecretkeylol12345"
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)  # e.g., expires in 1 hour
 db.init_app(app)
 migrate = Migrate(app, db)
 bcrypt.init_app(app)
 
 api = Api(app)
 CORS(app)
-
+jwt = JWTManager(app)
 
 @app.route("/")
 def home():
