@@ -4,12 +4,14 @@ import Button from "react-bootstrap/Button";
 import { useParams, useNavigate } from "react-router-dom";
 import "./EditUser.css";
 import loginImage from "../images/login.png";
+import FlashMessage from "./FlashMessage";
 
 function EditUser(props) {
   const { userId } = useParams();
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
+  const [flash, setFlash] = useState({ visible: false, message: "" });
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -42,16 +44,13 @@ function EditUser(props) {
         throw new Error("Deletion failed.");
       }
 
-      const data = await response.json();
-
-      if (response.status === 200) {
-        alert("User deleted successfully!");
-        navigate("/"); // Modify this as per your need
-      } else {
-        alert(data.message || "Deletion failed.");
-      }
+      const duration = 3000;
+      setFlash({ visible: true, message: "User deleted successfully!" });
+      setTimeout(() => {
+        navigate("/");
+      }, duration);
     } catch (err) {
-      alert(err.message);
+      setFlash({ visible: true, message: err.message });
     }
   };
 
@@ -72,6 +71,7 @@ function EditUser(props) {
 
   return (
     <div className="edit-form">
+      {flash.visible && <FlashMessage message={flash.message} />}
       <div className="edit-form-content">
         <h1>Edit User:</h1>
         <Formik
@@ -97,69 +97,66 @@ function EditUser(props) {
                 throw new Error("Update failed.");
               }
 
-              const data = await response.json();
-
-              if (response.status === 200) {
-                alert("User updated successfully!");
+              const duration = 3000;
+              setFlash({
+                visible: true,
+                message: "User updated successfully!",
+              });
+              setTimeout(() => {
                 navigate("/");
-              } else {
-                alert(data.message || "Update failed.");
-              }
+              }, duration);
             } catch (err) {
-              alert(err.message);
+              setFlash({ visible: true, message: err.message });
             }
           }}
         >
           {() => (
-            // Added an arrow function here to be able to include multiple JSX elements
-            <>
-              <Form className="form-border">
-                <img
-                  src={loginImage}
-                  alt="Login Illustration"
-                  className="login-image"
-                />
-                <br />
-                <label htmlFor="firstName">First Name</label>
-                <br />
-                <Field id="firstName" name="firstName" placeholder="Luna" />
-                <br />
-                <label htmlFor="lastName">Last Name</label>
-                <br />
-                <Field id="lastName" name="lastName" placeholder="Lucy" />
-                <br />
-                <label htmlFor="email">Email</label>
-                <br />
-                <Field
-                  id="email"
-                  name="email"
-                  placeholder="Luna@acme.com"
-                  type="email"
-                />
-                <br />
-                <label htmlFor="password">
-                  New Password (leave blank if unchanged)
-                </label>
-                <br />
-                <Field
-                  id="password"
-                  name="password"
-                  placeholder="********"
-                  type="password"
-                />
-                <br />
-                <Button variant="primary" type="submit" className="form-button">
-                  Update
-                </Button>
-                <Button
-                  variant="danger"
-                  onClick={deleteUser}
-                  className="delete-button"
-                >
-                  Delete User
-                </Button>
-              </Form>
-            </>
+            <Form className="form-border">
+              <img
+                src={loginImage}
+                alt="Login Illustration"
+                className="login-image"
+              />
+              <br />
+              <label htmlFor="firstName">First Name</label>
+              <br />
+              <Field id="firstName" name="firstName" placeholder="Luna" />
+              <br />
+              <label htmlFor="lastName">Last Name</label>
+              <br />
+              <Field id="lastName" name="lastName" placeholder="Lucy" />
+              <br />
+              <label htmlFor="email">Email</label>
+              <br />
+              <Field
+                id="email"
+                name="email"
+                placeholder="Luna@acme.com"
+                type="email"
+              />
+              <br />
+              <label htmlFor="password">
+                New Password (leave blank if unchanged)
+              </label>
+              <br />
+              <Field
+                id="password"
+                name="password"
+                placeholder="********"
+                type="password"
+              />
+              <br />
+              <Button variant="primary" type="submit" className="form-button">
+                Update
+              </Button>
+              <Button
+                variant="danger"
+                onClick={deleteUser}
+                className="delete-button"
+              >
+                Delete User
+              </Button>
+            </Form>
           )}
         </Formik>
       </div>
