@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData, Enum
+from datetime import datetime
 from flask_bcrypt import Bcrypt, generate_password_hash, check_password_hash
 
 convention = {
@@ -23,6 +24,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128))
     is_seller = db.Column(db.Boolean, default=False)
+    cart = db.relationship('CartItem', backref='user', lazy=True)
 
     def to_dict(self):
         return {
@@ -48,3 +50,11 @@ class Product(db.Model):
     count = db.Column(db.Integer, nullable=False)
     category = db.Column(Enum('Aviator', 'Wayfarer', 'Round',
                          'Sports', 'Designer', 'Oversized', 'Cat-Eye'), nullable=True)
+    cart_items = db.relationship('CartItem', backref='product', lazy=True)
+
+class CartItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
+    quantity = db.Column(db.Integer, default=1, nullable=False)
+    added_on = db.Column(db.DateTime, default=datetime.utcnow)
