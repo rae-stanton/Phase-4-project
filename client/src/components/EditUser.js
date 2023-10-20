@@ -101,6 +101,7 @@ function EditUser(props) {
 
               if (response.status === 200) {
                 alert("User updated successfully!");
+                navigate("/");
               } else {
                 alert(data.message || "Update failed.");
               }
