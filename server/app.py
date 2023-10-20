@@ -3,7 +3,8 @@ from flask_cors import CORS
 from flask import Flask, make_response, jsonify, request
 from flask_migrate import Migrate
 from flask_restful import Resource, Api
-from .models import User, db  # assuming models.py is in the same directory
+# assuming models.py is in the same directory
+from models import User, Product, db
 
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -34,6 +35,7 @@ class Users(Resource):
         # This will print users to the terminal to see if the query is fetching them correctly
         print(users)
         return jsonify({"users": [user.to_dict() for user in users]})
+
     def post(self):
         # Parsing the request data
         data = request.get_json()
