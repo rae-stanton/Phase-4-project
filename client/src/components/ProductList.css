@@ -1,0 +1,36 @@
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Poppins", sans-serif !important;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 15px; /* Adjust the gap size as needed */
+}
+
+/* Style the ProductCard to have a fixed size */
+.product-card {
+  width: calc(
+    33.33% - 20px
+  ); /* 33.33% width for three cards per row with some spacing */
+  margin: 10px; /* Add margin around each card */
+  padding: 15px; /* Add padding inside each card */
+  box-sizing: border-box; /* Include padding and border in card size */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Optional: Style the card contents as needed */
+.product-card-content {
+  /* Add your styles for card contents here */
+}
+
+/* Optional: Style card images to prevent scaling */
+.product-card img {
+  max-width: 100%;
+  height: auto;
+}
