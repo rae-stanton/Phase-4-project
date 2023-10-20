@@ -11,7 +11,7 @@ function ProductList({ searchInput }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/products")
+    fetch("http://127.0.0.1:5000/Products")
       .then((response) => response.json())
       .then(setProducts)
       .catch((error) => console.error("Error fetching products:", error));
