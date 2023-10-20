@@ -3,6 +3,7 @@ import sys
 from app import app
 from models import User, Product, db
 from faker import Faker
+import random
 
 # Get the current working directory
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -35,14 +36,22 @@ def seed_users(num_users=10):
 def seed_products(num_products=9):
     Product.query.delete()
     for _ in range(num_products):
+        num_categories = random.randint(1, 3)
+
+        categories = [fake.random_element(elements=[
+            'Aviator', 'Wayfarer', 'Round', 'Sports', 'Designer', 'Oversized', 'Cat-Eye'
+        ]) for _ in range(num_categories)]
+
+        if num_categories == 1:
+            categories = [categories]
+
         product = Product(
             name=fake.city(),
             description=fake.sentence(),
             price=fake.random_int(min=10, max=200),
             image=fake.image_url(),
             count=fake.random_int(min=1, max=100),
-            category=fake.random_element(elements=[
-                                         'Aviator', 'Wayfarer', 'Round', 'Sports', 'Designer', 'Oversized', 'Cat-Eye'])
+            category=categories
         )
         db.session.add(product)
     db.session.commit()
