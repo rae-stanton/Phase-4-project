@@ -32,7 +32,7 @@ def seed_users(num_users=10):
 
 
 # Function to seed products
-def seed_products(num_products=20):
+def seed_products(num_products=9):
     Product.query.delete()
     for _ in range(num_products):
         product = Product(
