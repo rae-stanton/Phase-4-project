@@ -62,7 +62,9 @@ class Products(Resource):
         products = Product.query.all()
         # This will print products to the terminal to see if the query is fetching them correctly
         print(products)
-        return jsonify({"products": [product.to_dict() for product in products]})
+        product_list = [{'name': product.name, 'description': product.description, 'price': product.price,
+                         'image': product.image, 'count': product.count, 'category': product.category} for product in products]
+        return jsonify(product_list)
 
     def post(self):
         # Parsing the request data
@@ -81,6 +83,61 @@ class Products(Resource):
         return {"message": "Product created successfully!", "product": {"id": product.id, "name": product.name, "price": product.price, "count": product.count}}, 201
 
 
+class Carts(Resource):
+    def get(self, user_id):
+        user = User.query.get(user_id)
+        if not user:
+            return {"message": "User not found"}, 404
+
+        cart_items = Cart.query.filter_by(user_id=user_id).all()
+        cart_data = [{"product": cart_item.product.to_dict(
+        ), "quantity": cart_item.quantity} for cart_item in cart_items]
+
+        return {"user_id": user_id, "cart": cart_data}
+
+    def post(self, user_id):
+        data = request.get_json()
+        product_id = data.get("product_id")
+        quantity = data.get("quantity", 1)
+
+        user = User.query.get(user_id)
+        product = Product.query.get(product_id)
+
+        if not user:
+            return {"message": "User not found"}, 404
+        if not product:
+            return {"message": "Product not found"}, 404
+
+        cart_item = Cart.query.filter_by(
+            user_id=user_id, product_id=product_id).first()
+
+        if cart_item:
+            # Update quantity if the item already exists in the cart
+            cart_item.quantity = quantity
+        else:
+            # Create a new cart item
+            cart_item = Cart(
+                user_id=user_id, product_id=product_id, quantity=quantity)
+            db.session.add(cart_item)
+
+        db.session.commit()
+
+        return {"message": "Cart updated successfully"}
+
+    def delete(self, user_id, product_id):
+        cart_item = Cart.query.filter_by(
+            user_id=user_id, product_id=product_id).first()
+
+        if not cart_item:
+            return {"message": "Cart item not found"}, 404
+
+        db.session.delete(cart_item)
+        db.session.commit()
+
+        return {"message": "Cart item deleted successfully"}
+
+
+api.add_resource(Carts, "/users/<int:user_id>/cart")
 api.add_resource(Users, "/users")
 api.add_resource(Products, "/products")
 
